@@ -9,7 +9,8 @@ $bookComment = $_POST['bookComment'];
 
 // 2. DB接続
 try {
-    $pdo = new PDO('mysql:dbname=gs_task8_bookmark_db;charset=utf8;host=localhost','root','root');
+    // $pdo = new PDO('mysql:dbname=gs_task8_bookmark_db;charset=utf8;host=localhost','root','root');
+    $pdo = new PDO('mysql:dbname=naoshi_db;charset=utf8;host=mysql57.naoshi.sakura.ne.jp','naoshi','naofumi3512');
 } catch (PDOException $e) {
   exit('DBConnectError:'.$e->getMessage());
 }
