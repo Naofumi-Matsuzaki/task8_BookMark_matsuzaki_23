@@ -8,12 +8,9 @@ $bookComment = $_POST['bookComment'];
 
 
 // 2. DB接続
-try {
-    // $pdo = new PDO('mysql:dbname=gs_task8_bookmark_db;charset=utf8;host=localhost','root','root');
-    $pdo = new PDO('mysql:dbname=naoshi_db;charset=utf8;host=mysql57.naoshi.sakura.ne.jp','naoshi','naofumi3512');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+require_once('bm_func.php');
+$pdo = db_conn();
+
 
 // 3. SQL文を用意(データ登録：INSERT)
 $stmt = $pdo->prepare(
@@ -31,12 +28,10 @@ $status = $stmt->execute();
 
 // 6．データ登録処理後
 if($status==false){
-//SQL実行時にエラーがある場合（エラーオブジェクト取得して表示）
-$error = $stmt->errorInfo();
-exit("ErrorMassage:".$error[2]);
+  sql_error($stmt);
 }else{
 // index.phpへリダイレクト
-header('Location: index.php'); // : の後に半角スペース必須！
+  redirect('index.php');
 }
 
 ?>

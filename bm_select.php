@@ -1,11 +1,7 @@
 <?php
 //1.  DB接続
-try {
-  // $pdo = new PDO('mysql:dbname=gs_task8_bookmark_db;charset=utf8;host=localhost','root','root');
-  $pdo = new PDO('mysql:dbname=naoshi_db;charset=utf8;host=mysql57.naoshi.sakura.ne.jp','naoshi','naofumi3512');
-} catch (PDOException $e) {
-  exit('DBConnectError:'.$e->getMessage());
-}
+require_once('bm_func.php');
+$pdo = db_conn();
 
 //２．SQL文を用意(データ取得：SELECT)
 $stmt = $pdo->prepare("SELECT * FROM gs_bm_table");
@@ -16,15 +12,19 @@ $status = $stmt->execute();
 //4．データ表示
 $view='';
 if($status==false) {
-  $error = $stmt->errorInfo();
-  exit("ErrorQuery:".$error[2]);
+  sql_error($status);
 }else{
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){ 
     $view .= "<tr>";
     $view .= "<td>".$result['indate']."</td>";
-    $view .= "<td>".$result['bookName']."</td>";
+    $view .= "<td>";
+    $view .= '<a href="bm_detail.php?id='.$result["id"].'">'.$result['bookName'].'</a>';
+    $view .= "</td>";
     $view .= "<td>".$result['bookURL']."</td>";
     $view .= "<td>".$result['bookComment']."</td>";
+    $view .= "<td>";
+    $view .= '<a href="bm_delete.php?id='.$result["id"].'">[削除]</a>';
+    $view .= "</td>";
     $view .= "</tr>";
   }
 }
@@ -38,39 +38,8 @@ if($status==false) {
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ブックマーク表示</title>
-  <style>
-    body{
-      text-align: center;
-      font-size: 16px;
-    }
-    header{
-      padding: 30px 0;
-      background: linear-gradient(to top left, black,green);
-    }
-    a{
-      color: white;
-      font-weight : bold;
-      font-size: 24px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      border: 1px solid black;
-      margin : 30px 0;
-    }
-    th {
-      color:white;
-      background: linear-gradient(to top left, black,green);
-      padding: 10px 3px;
-    }
-    td{
-      border: 0.1px dotted green;
-      padding: 5px 3px;
-    }
-    p{
-      margin: auto;
-    }
-  </style>
+<link rel="stylesheet" href="./css/style2.css">
+
 </head>
 <body>
 <header>
@@ -83,6 +52,7 @@ if($status==false) {
         <th>本の名前</th>
         <th>URL</th>
         <th>コメント</th>
+        <th>削除ボタン</th>
     </tr>
     <?=$view?>
 </table>
