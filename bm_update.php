@@ -4,7 +4,7 @@ $id = $_POST["id"];
 $bookName = $_POST["bookName"];
 $bookURL = $_POST["bookURL"];
 $bookComment = $_POST["bookComment"];
-
+$file = $_POST["file"];
 
 // DB接続
 require_once('bm_func.php');
@@ -24,7 +24,7 @@ $status = $stmt->execute();
 if($status == false) {
     sql_error($stmt);
 } else {
-    redirect('bm_select.php');
+    redirect($file);
 }
 
 ?>

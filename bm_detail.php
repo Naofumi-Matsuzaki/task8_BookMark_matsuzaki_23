@@ -54,6 +54,7 @@ if ($status == false) {
             </tr>
         </table>
         <input type="hidden" name="id" value="<?= $row["id"]?>">
+        <input type="hidden" name="file" value="bm_select.php">
         <input class="submit" type="submit" value="送信">
     </form>
 </body>

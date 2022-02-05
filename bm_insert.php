@@ -5,7 +5,7 @@
 $bookName = $_POST['bookName'];
 $bookURL = $_POST['bookURL'];
 $bookComment = $_POST['bookComment'];
-
+$file = $_POST['file'];
 
 // 2. DB接続
 require_once('bm_func.php');
@@ -30,8 +30,8 @@ $status = $stmt->execute();
 if($status==false){
   sql_error($stmt);
 }else{
-// index.phpへリダイレクト
-  redirect('index.php');
+// 元のページへリダイレクト
+  redirect($file);
 }
 
 ?>

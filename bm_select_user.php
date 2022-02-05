@@ -23,14 +23,9 @@ if($status==false) {
   while( $result = $stmt->fetch(PDO::FETCH_ASSOC)){ 
     $view .= "<tr>";
     $view .= "<td>".$result['indate']."</td>";
-    $view .= "<td>";
-    $view .= '<a href="bm_detail.php?id='.$result["id"].'">'.$result['bookName'].'</a>';
-    $view .= "</td>";
+    $view .= "<td>".$result['bookName']."</td>";
     $view .= "<td>".$result['bookURL']."</td>";
     $view .= "<td>".$result['bookComment']."</td>";
-    $view .= "<td>";
-    $view .= '<a href="bm_delete.php?id='.$result["id"].'">[削除]</a>';
-    $view .= "</td>";
     $view .= "</tr>";
   }
 }
@@ -50,8 +45,8 @@ if($status==false) {
 <body>
   <h1>ブックマーク表示</h1>
   <header>
-    <p><a href="bm_logout.php">ログアウト</a></p>
-    <p><a href="master.php">管理者トップページ</a></p>
+      <p><a href="bm_logout.php">ログアウト</a></p>
+      <p><a href="user.php">一般ユーザートップページ</a></p>
   </header>
   <p>ようこそ、<?= $uName ?>さん</p>
   <table>
@@ -60,7 +55,6 @@ if($status==false) {
           <th>本の名前</th>
           <th>URL</th>
           <th>コメント</th>
-          <th>削除ボタン</th>
       </tr>
       <?=$view?>
   </table>

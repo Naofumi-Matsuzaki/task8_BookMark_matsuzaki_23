@@ -1,3 +1,13 @@
+<?php
+// SESSION開始、関数を呼び出す、ログインチェック、セッション変数取得
+session_start();
+require_once('bm_func.php');
+loginCheck();
+$uName      = $_SESSION['uName'];
+$kanri_flg  = $_SESSION['kanri_flg'];
+
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -8,9 +18,12 @@
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+    <h1>ブックマーク登録</h1>
     <header>
-        <p><a href="bm_select.php">ブックマーク表示画面へ</a></p>
+        <p><a href="bm_logout.php">ログアウト</a></p>
+        <p><a href="master.php">管理者トップページ</a></p>
     </header>
+    <p>ようこそ、<?= $uName ?>さん</p>
     <form method="post" action="bm_insert.php">
         <table>
             <tr>
@@ -27,6 +40,8 @@
             </tr>
         </table>
         <input class="submit" type="submit" value="送信">
+        <input type="hidden" name="file" value="bm_register.php">
+
     </form>
 </body>
 </html>
